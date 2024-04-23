@@ -12,16 +12,6 @@ ComplexPlane::ComplexPlane(int pixelWidth, int pixelHeight)
 	m_vArray.setPrimitiveType(Points);
 	m_vArray.resize((size_t)(pixelWidth * pixelHeight));
 
-	for (int i = 0; i < pixelHeight; i++)
-	{
-		for (int j = 0; j < pixelWidth; j++)
-		{
-			Uint8 r = 51;
-			Uint8 g = 51;
-			Uint8 b = 51;
-			m_vArray[j + i * m_pixel_size.x].color = { r,g,b };
-		}
-	}
 }
 
 void ComplexPlane::draw(RenderTarget& target, RenderStates states) const
@@ -31,30 +21,27 @@ void ComplexPlane::draw(RenderTarget& target, RenderStates states) const
 
 void ComplexPlane::updateRender()
 {
-	int planeHeight = m_plane_size.y;
-	int planeWidth = m_plane_size.x;
+	int pixelHeight = m_pixel_size.y;
+	int pixelWidth = m_pixel_size.x;
 
 	if (m_State == CALCULATING)
 	{
-		for (int i = 0; i < planeHeight; i++)
+		for (int i = 0; i < pixelHeight; i++)
 		{
-			for (int j = 0; j < planeWidth; j++)
+			for (int j = 0; j < pixelWidth; j++)
 			{
 				m_vArray[j + i * m_pixel_size.x].position = { (float)j,(float)i };
 
-				Vector2f complex_coords = ComplexPlane::mapPixelToCoords(Vector2i(j,i)); //Find Vector2f MAP TO (j,i) MAYBE NEEDS FIXIN
-				int iterations = ComplexPlane::countIterations(complex_coords);
-				Uint8 r = 0;
-				Uint8 g = 0;
-				Uint8 b = 0;
+				Vector2f complex_coords = mapPixelToCoords(Vector2i(j,i)); //Find Vector2f MAP TO (j,i) MAYBE NEEDS FIXIN
+				int iterations = countIterations(complex_coords);
+				Uint8 r, g, b;
 
 				iterationsToRGB(iterations, r, g, b);
-				m_vArray[j + i * m_pixel_size.x].color = { r,g,b };
+				m_vArray[j + i * m_pixel_size.x].color = Color( r,g,b );
 			}
 		}
-		m_State = DISPLAYING;
 	}
-
+	m_State = DISPLAYING;
 }
 
 void ComplexPlane::zoomIn()
@@ -63,14 +50,12 @@ void ComplexPlane::zoomIn()
 
 	float x = BASE_WIDTH * pow(BASE_ZOOM, m_zoomCount);
 	float y = BASE_HEIGHT * m_aspectRatio * pow(BASE_ZOOM, m_zoomCount);
-	m_plane_size = { x, y }; 
+	m_plane_size = { x, y };
 	m_State = CALCULATING;
 }
 void ComplexPlane::zoomOut()
 {
-	m_zoomCount--;
-	if (m_zoomCount < 0) m_zoomCount = 0;
-
+	if (m_zoomCount > 0) m_zoomCount--;
 
 	float x = BASE_WIDTH * pow(BASE_ZOOM, m_zoomCount);
 	float y = BASE_HEIGHT * m_aspectRatio * pow(BASE_ZOOM, m_zoomCount);
@@ -80,23 +65,21 @@ void ComplexPlane::zoomOut()
 
 void ComplexPlane::setCenter(Vector2i mousePixel)
 {
-	//Vector2f coords = ComplexPlane::mapPixelToCoords(mousePixel);
-	m_plane_center = ComplexPlane::mapPixelToCoords(mousePixel);
+	m_plane_center = mapPixelToCoords(mousePixel);
 	m_State = CALCULATING;
 }
 
 void ComplexPlane::setMouseLocation(Vector2i mousePixel)
 {
-	//Vector2f coords = ComplexPlane::mapPixelToCoords(mousePixel);
-	m_mouseLocation = ComplexPlane::mapPixelToCoords(mousePixel);
+	m_mouseLocation = mapPixelToCoords(mousePixel);
 }
 
 void ComplexPlane::loadText(Text& text)
 {
-	double a = m_plane_center.x;//FIXXME
+	double a = m_plane_center.x;
 	double b = m_plane_center.y;
 
-	double x = m_mouseLocation.x;//FIXME
+	double x = m_mouseLocation.x;
 	double y = m_mouseLocation.y;
 
 	complex<double> c(a, b);
@@ -113,34 +96,34 @@ void ComplexPlane::loadText(Text& text)
 }
 
 
-int ComplexPlane::countIterations(Vector2f coord)
+int ComplexPlane::countIterations(Vector2f coords)
 {
-	complex<double> c(coord.x, coord.y);
+	complex<double> c(coords.x, coords.y);
 	complex<double> z(0, 0);
 
 	for (int i = 0; i < MAX_ITER; i++)
 	{
 		z = z * z + c;
-		if (abs(z) > 2.0) {
-			cout << i << endl;
+		if (abs(z) > 2.0) 
+		{
 			return i;
 		}
 	}
-	
-	return MAX_ITER; //FIXME FIXME FIXME FIXME FIXME - Rewrite as iterations
+	return MAX_ITER; 
 }
+
 
 void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 {
 	if (count == MAX_ITER)
 	{
-		r = 0;
-		g = 0;
-		b = 0;
+		r = 225;
+		g = 222;
+		b = 222;
 	}
 	else
 	{
-		if (count >= 0 && count < 17 ) // Purple / blue for low iteration counts
+		if (count >= 0 && count < 17) // Purple / blue for low iteration counts
 		{
 			r = 0;
 			g = 102;
@@ -166,9 +149,9 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 		}
 		else // Red for high iteration counts
 		{
-			r = 255;
-			g = 0;
-			b = 0;
+			r = 51;
+			g = 220;
+			b = 220;
 		}
 	}
 }

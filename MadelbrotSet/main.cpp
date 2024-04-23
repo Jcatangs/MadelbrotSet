@@ -14,17 +14,19 @@ int main()
 	int window_width = VideoMode::getDesktopMode().width * 0.5;
 	int window_height = VideoMode::getDesktopMode().height * 0.5;
 
-	RenderWindow window(VideoMode(window_width, window_height), "Mandelbrot Set", Style::Default);
+	VideoMode vm(window_width, window_height);
+	RenderWindow window(vm, "Mandelbrot Set", Style::Default);
 	
-	ComplexPlane Mandelbrot_set = { window_width, window_height };
+	ComplexPlane Mandelbrot_set(window_width, window_height);
 
-	Font font; //Refer for coordinate presentation LOAD TEXTS
-	Text text("", font); //LOAD FONTS
-
+	Font font; //Refer for coordinate presentation LOAD TEXTS //LOAD FONTS
 	font.loadFromFile("tuffy.ttf");
+
+	Text text("", font);
 	text.setCharacterSize(20);
 	text.setStyle(Text::Regular);
 	text.setFillColor(Color::White);
+
 
 	while (window.isOpen())
 	{
@@ -37,7 +39,7 @@ int main()
 			
 			else if (event.type == Event::MouseButtonPressed)
 			{
-				if (event.mouseButton.button == sf::Mouse::Right)
+				if (event.mouseButton.button == Mouse::Right)
 				{
 					//zoomOut
 					Mandelbrot_set.zoomOut();
@@ -45,7 +47,7 @@ int main()
 					Mandelbrot_set.setCenter(Mouse::getPosition(window));
 				}
 
-				else if (event.mouseButton.button == sf::Mouse::Left)
+				else if (event.mouseButton.button == Mouse::Left)
 				{
 					//zoomIn
 					Mandelbrot_set.zoomIn();

@@ -1,4 +1,7 @@
 #pragma once
+#ifndef COMPLEX_PLANE_H
+#define COMPLEX_PLANE_H
+
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -15,7 +18,7 @@ const float BASE_WIDTH = 4.0;
 const float BASE_HEIGHT = 4.0;
 const float BASE_ZOOM = 0.5;
 
-enum State { CALCULATING, DISPLAYING};
+enum State { CALCULATING, DISPLAYING };
 
 class ComplexPlane : public Drawable
 {
@@ -39,9 +42,9 @@ class ComplexPlane : public Drawable
 		int m_zoomCount; 
 		float m_aspectRatio;
 
-		int countIterations(Vector2f coord);
+		int countIterations(Vector2f coords);
 		void iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b);
 		Vector2f mapPixelToCoords(Vector2i mousePixel);
-
 };
 
+#endif
