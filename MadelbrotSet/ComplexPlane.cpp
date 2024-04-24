@@ -24,6 +24,10 @@ void ComplexPlane::updateRender()
 	int pixelHeight = m_pixel_size.y;
 	int pixelWidth = m_pixel_size.x;
 
+	//Thread thread(&ComplexPlane::updateRender, this); //DANGEROUSSSSSSS
+	//thread.launch();
+
+
 	if (m_State == CALCULATING)
 	{
 
