@@ -34,7 +34,7 @@ int main()
 	while (window.isOpen())
 	{
 		Event event;
-
+	
 		//INPUT SEGMENT
 		while (window.pollEvent(event))
 		{ 
@@ -54,6 +54,7 @@ int main()
 				{
 					//zoomIn
 					Mandelbrot_set.zoomIn();
+					clock.restart();
 					//call setCenter on ComplexPlane with (x,y) of mouse click
 					//this will be used to display mouse coordinates
 					Mandelbrot_set.setCenter(Mouse::getPosition(window));
@@ -71,13 +72,16 @@ int main()
 			*/
 		Mandelbrot_set.updateRender();
 		Mandelbrot_set.loadText(text);
-
+	
 		//DRAW SCENE SEGMENT
 		window.clear();
 		window.draw(Mandelbrot_set);
 		window.draw(text);
 		window.display();
-	}
 
+		clock.restart();
+		cout << "Elapsed time: " << clock.getElapsedTime().asSeconds() << endl;
+	}
+	
 	return 0;
 }
