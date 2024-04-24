@@ -26,7 +26,7 @@ void ComplexPlane::updateRender()
 
 	//Thread thread(&ComplexPlane::updateRender, this); //DANGEROUSSSSSSS
 	//thread.launch();
-
+	//thread.wait();
 
 	if (m_State == CALCULATING)
 	{

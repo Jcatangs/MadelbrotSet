@@ -30,6 +30,7 @@ int main()
 
 	Thread thread(&ComplexPlane::updateRender, &Mandelbrot_set);
 	thread.launch();
+	thread.wait();
 
 	while (window.isOpen())
 	{
