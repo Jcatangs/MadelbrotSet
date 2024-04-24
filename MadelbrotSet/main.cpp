@@ -28,9 +28,17 @@ int main()
 	text.setStyle(Text::Regular);
 	text.setFillColor(Color::White);
 
-	Thread thread(&ComplexPlane::updateRender, &Mandelbrot_set);
-	thread.launch();
-	thread.wait();
+	Thread thread1(&ComplexPlane::updateRender, &Mandelbrot_set);
+	Thread thread2(&ComplexPlane::updateRender, &Mandelbrot_set);
+	Thread thread3(&ComplexPlane::updateRender, &Mandelbrot_set);
+
+	thread1.launch();
+	thread2.launch();
+	thread3.launch();
+
+	thread1.wait();
+	thread2.wait();
+	thread3.wait();
 
 	while (window.isOpen())
 	{
