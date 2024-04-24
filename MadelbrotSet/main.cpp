@@ -11,6 +11,7 @@ using namespace std;
 
 int main()
 {
+	Clock clock;
 	int window_width = VideoMode::getDesktopMode().width * 0.5;
 	int window_height = VideoMode::getDesktopMode().height * 0.5;
 
@@ -27,6 +28,8 @@ int main()
 	text.setStyle(Text::Regular);
 	text.setFillColor(Color::White);
 
+	Thread thread(&ComplexPlane::updateRender, &Mandelbrot_set);
+	thread.launch();
 
 	while (window.isOpen())
 	{

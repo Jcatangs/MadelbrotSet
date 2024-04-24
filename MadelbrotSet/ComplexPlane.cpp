@@ -1,6 +1,6 @@
 #include "ComplexPlane.h"
 
-ComplexPlane::ComplexPlane(int pixelWidth, int pixelHeight)
+ComplexPlane::ComplexPlane(int pixelWidth, int pixelHeight) //: m_thread(&ComplexPlane::updateRender, this)
 {
 	m_pixel_size = { pixelWidth, pixelHeight };
 	m_aspectRatio = pixelHeight / (double)pixelWidth;
@@ -26,6 +26,7 @@ void ComplexPlane::updateRender()
 
 	if (m_State == CALCULATING)
 	{
+
 		for (int i = 0; i < pixelHeight; i++)
 		{
 			for (int j = 0; j < pixelWidth; j++)
