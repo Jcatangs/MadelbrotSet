@@ -49,13 +49,9 @@ void ComplexPlane::draw(RenderTarget& target, RenderStates states) const
 
 void ComplexPlane::updateRender1()
 {
-	//int startH = 0;
-	//int startW = 0;
-	//int endH = (m_pixel_size.y * 0.25);
-	//int endW = (m_pixel_size.x * 0.25);
 	int startH = 0;
 	int startW = 0;
-	int endH = (m_pixel_size.y);
+	int endH = (m_pixel_size.y * 0.25);
 	int endW = (m_pixel_size.x);
 
 	if (m_State == CALCULATING)
@@ -81,13 +77,9 @@ void ComplexPlane::updateRender1()
 
 void ComplexPlane::updateRender2()
 {
-	//int startH = (m_pixel_size.y * 0.25);
-	//int startW = (m_pixel_size.x * 0.25);
-	//int endH = (m_pixel_size.y * 0.5);
-	//int endW = (m_pixel_size.x * 0.5);
-	int startH = 0;
+	int startH = (m_pixel_size.y * 0.25);
 	int startW = 0;
-	int endH = (m_pixel_size.y);
+	int endH = (m_pixel_size.y * 0.5);
 	int endW = (m_pixel_size.x);
 
 	if (m_State == CALCULATING)
@@ -113,13 +105,9 @@ void ComplexPlane::updateRender2()
 
 void ComplexPlane::updateRender3()
 {
-	//int startH = (m_pixel_size.y * 0.5);
-	//int startW = (m_pixel_size.x * 0.5);
-	//int endH = (m_pixel_size.y * 0.75);
-	//int endW = (m_pixel_size.x * 0.75);
-	int startH = 0;
+	int startH = (m_pixel_size.y * 0.5);
 	int startW = 0;
-	int endH = (m_pixel_size.y);
+	int endH = (m_pixel_size.y * 0.75);
 	int endW = (m_pixel_size.x);
 
 	if (m_State == CALCULATING)
@@ -145,15 +133,10 @@ void ComplexPlane::updateRender3()
 
 void ComplexPlane::updateRender4()
 {
-	//int startH = (m_pixel_size.y * 0.75);
-	//int startW = (m_pixel_size.x * 0.75);
-	//int endH = (m_pixel_size.y);
-	//int endW = (m_pixel_size.x);
-	int startH = 0;
+	int startH = (m_pixel_size.y * 0.75);
 	int startW = 0;
 	int endH = (m_pixel_size.y);
 	int endW = (m_pixel_size.x);
-
 
 	if (m_State == CALCULATING)
 	{
@@ -178,24 +161,6 @@ void ComplexPlane::updateRender4()
 
 void ComplexPlane::multiThread()
 {
-	//Clock clock;
-	//clock.restart();
-
-	//Thread thread1(&ComplexPlane::updateRender1, this);   /////////// C4
-	//Thread thread2(&ComplexPlane::updateRender2, this);   /////////// C4
-	//Thread thread3(&ComplexPlane::updateRender3, this);   /////////// C4
-	//Thread thread4(&ComplexPlane::updateRender4, this);	  /////////// C4
-
-	//thread1.launch();
-	//thread2.launch();
-	//thread3.launch();
-	//thread4.launch();
-
-	//thread1.wait();
-	//thread2.wait();
-	//thread3.wait();
-	//thread4.wait();
-
 	thread thread1(&ComplexPlane::updateRender1, this);   /////////// C4
 	thread thread2(&ComplexPlane::updateRender2, this);   /////////// C4
 	thread thread3(&ComplexPlane::updateRender3, this);   /////////// C4
