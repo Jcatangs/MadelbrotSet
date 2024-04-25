@@ -28,24 +28,10 @@ int main()
 	text.setStyle(Text::Regular);
 	text.setFillColor(Color::White);
 
-	Thread thread1(&ComplexPlane::updateRender, &Mandelbrot_set);   /////////// C4
-	Thread thread2(&ComplexPlane::updateRender, &Mandelbrot_set);   /////////// C4
-	Thread thread3(&ComplexPlane::updateRender, &Mandelbrot_set);   /////////// C4
-	Thread thread4(&ComplexPlane::updateRender, &Mandelbrot_set);   /////////// C4
-
-	thread1.launch();
-	thread2.launch();
-	thread3.launch();
-	thread4.launch();
-
-	thread1.wait();
-	thread2.wait();
-	thread3.wait();
-	thread4.wait();
-
 	while (window.isOpen())
 	{
 		Event event;
+		clock.restart();
 	
 		//INPUT SEGMENT
 		while (window.pollEvent(event))
@@ -82,17 +68,17 @@ int main()
 				::: updateRender on ComplexPlane :::
 				::: loadText on ComplexPlane :::
 			*/
-		Mandelbrot_set.updateRender();
+		//Mandelbrot_set.updateRender();
+		//Mandelbrot_set.updateRenderMain();
+		Mandelbrot_set.multiThread();
 		Mandelbrot_set.loadText(text);
-	
+
 		//DRAW SCENE SEGMENT
 		window.clear();
 		window.draw(Mandelbrot_set);
 		window.draw(text);
 		window.display();
 
-		clock.restart();
-		cout << "Elapsed time: " << clock.getElapsedTime().asSeconds() << endl;
 	}
 	
 	return 0;

@@ -5,9 +5,12 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <SFML/System/Thread.hpp>
 #include <sstream>
 #include <vector>
 #include <complex>
+#include <thread>
+#include <chrono>
 #include <cmath>
 
 using namespace std;
@@ -30,7 +33,13 @@ class ComplexPlane : public Drawable
 		void setCenter(Vector2i mousePixel);
 		void setMouseLocation(Vector2i mousePixel);
 		void loadText(Text& text);
+
 		void updateRender();
+		void updateRender1();
+		void updateRender2();
+		void updateRender3();
+		void updateRender4();
+		void multiThread();
 		
 	private:
 		VertexArray m_vArray; 

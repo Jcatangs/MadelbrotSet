@@ -19,30 +19,51 @@ void ComplexPlane::draw(RenderTarget& target, RenderStates states) const
 	target.draw(m_vArray);
 }
 
-void ComplexPlane::updateRender()
-{
-	int pixelHeight = m_pixel_size.y;
-	int pixelWidth = m_pixel_size.x;
+//void ComplexPlane::updateRender()
+//{
+//	double startH = 0;
+//	double startW = 0;
+//	double endH = (m_pixel_size.y); // / 4);
+//	double endW = (m_pixel_size.x);
+//
+//	if (m_State == CALCULATING)
+//	{
+//
+//		for (double i = startH; i < endH; i++)
+//		{
+//			for (double j = startW; j < endW; j++)
+//			{
+//				m_vArray[j + i * m_pixel_size.x].position = { (float)j,(float)i };
+//
+//				Vector2f complex_coords = mapPixelToCoords(Vector2i(j, i)); //Find Vector2f MAP TO (j,i) MAYBE NEEDS FIXIN
+//				int iterations = countIterations(complex_coords);
+//				Uint8 r, g, b;
+//
+//				iterationsToRGB(iterations, r, g, b);
+//				m_vArray[j + i * m_pixel_size.x].color = Color(r, g, b);
+//			}
+//		}
+//	}
+//	m_State = DISPLAYING;
+//}
 
-	//Thread thread(&ComplexPlane::updateRender, this); //DANGEROUSSSSSSS
-	//thread.launch();
-	//thread.wait();
-	//Thread thread1(&ComplexPlane::updateRender, this);
-	//Thread thread2(&ComplexPlane::updateRender, this);
-	//Thread thread3(&ComplexPlane::updateRender, this);
-	//thread1.launch();
-	//thread2.launch();
-	//thread3.launch();
-	//thread1.wait();
-	//thread2.wait();
-	//thread3.wait();
+void ComplexPlane::updateRender1()
+{
+	//int startH = 0;
+	//int startW = 0;
+	//int endH = (m_pixel_size.y * 0.25);
+	//int endW = (m_pixel_size.x * 0.25);
+	int startH = 0;
+	int startW = 0;
+	int endH = (m_pixel_size.y);
+	int endW = (m_pixel_size.x);
 
 	if (m_State == CALCULATING)
 	{
 
-		for (int i = 0; i < pixelHeight; i++)
+		for (int i = startH; i < endH; i++)
 		{
-			for (int j = 0; j < pixelWidth; j++)
+			for (int j = startW; j < endW; j++)
 			{
 				m_vArray[j + i * m_pixel_size.x].position = { (float)j,(float)i };
 
@@ -56,6 +77,134 @@ void ComplexPlane::updateRender()
 		}
 	}
 	m_State = DISPLAYING;
+}
+
+void ComplexPlane::updateRender2()
+{
+	//int startH = (m_pixel_size.y * 0.25);
+	//int startW = (m_pixel_size.x * 0.25);
+	//int endH = (m_pixel_size.y * 0.5);
+	//int endW = (m_pixel_size.x * 0.5);
+	int startH = 0;
+	int startW = 0;
+	int endH = (m_pixel_size.y);
+	int endW = (m_pixel_size.x);
+
+	if (m_State == CALCULATING)
+	{
+
+		for (int i = startH; i < endH; i++)
+		{
+			for (int j = startW; j < endW; j++)
+			{
+				m_vArray[j + i * m_pixel_size.x].position = { (float)j,(float)i };
+
+				Vector2f complex_coords = mapPixelToCoords(Vector2i(j, i)); //Find Vector2f MAP TO (j,i) MAYBE NEEDS FIXIN
+				int iterations = countIterations(complex_coords);
+				Uint8 r, g, b;
+
+				iterationsToRGB(iterations, r, g, b);
+				m_vArray[j + i * m_pixel_size.x].color = Color(r, g, b);
+			}
+		}
+	}
+	m_State = DISPLAYING;
+}
+
+void ComplexPlane::updateRender3()
+{
+	//int startH = (m_pixel_size.y * 0.5);
+	//int startW = (m_pixel_size.x * 0.5);
+	//int endH = (m_pixel_size.y * 0.75);
+	//int endW = (m_pixel_size.x * 0.75);
+	int startH = 0;
+	int startW = 0;
+	int endH = (m_pixel_size.y);
+	int endW = (m_pixel_size.x);
+
+	if (m_State == CALCULATING)
+	{
+
+		for (int i = startH; i < endH; i++)
+		{
+			for (int j = startW; j < endW; j++)
+			{
+				m_vArray[j + i * m_pixel_size.x].position = { (float)j,(float)i };
+
+				Vector2f complex_coords = mapPixelToCoords(Vector2i(j, i)); //Find Vector2f MAP TO (j,i) 
+				int iterations = countIterations(complex_coords);
+				Uint8 r, g, b;
+
+				iterationsToRGB(iterations, r, g, b);
+				m_vArray[j + i * m_pixel_size.x].color = Color(r, g, b);
+			}
+		}
+	}
+	m_State = DISPLAYING;
+}
+
+void ComplexPlane::updateRender4()
+{
+	//int startH = (m_pixel_size.y * 0.75);
+	//int startW = (m_pixel_size.x * 0.75);
+	//int endH = (m_pixel_size.y);
+	//int endW = (m_pixel_size.x);
+	int startH = 0;
+	int startW = 0;
+	int endH = (m_pixel_size.y);
+	int endW = (m_pixel_size.x);
+
+
+	if (m_State == CALCULATING)
+	{
+
+		for (int i = startH; i < endH; i++)
+		{
+			for (int j = startW; j < endW; j++)
+			{
+				m_vArray[j + i * m_pixel_size.x].position = { (float)j,(float)i };
+
+				Vector2f complex_coords = mapPixelToCoords(Vector2i(j, i)); //Find Vector2f MAP TO (j,i) MAYBE NEEDS FIXIN
+				int iterations = countIterations(complex_coords);
+				Uint8 r, g, b;
+
+				iterationsToRGB(iterations, r, g, b);
+				m_vArray[j + i * m_pixel_size.x].color = Color(r, g, b);
+			}
+		}
+	}
+	m_State = DISPLAYING;
+}
+
+void ComplexPlane::multiThread()
+{
+	//Clock clock;
+	//clock.restart();
+
+	//Thread thread1(&ComplexPlane::updateRender1, this);   /////////// C4
+	//Thread thread2(&ComplexPlane::updateRender2, this);   /////////// C4
+	//Thread thread3(&ComplexPlane::updateRender3, this);   /////////// C4
+	//Thread thread4(&ComplexPlane::updateRender4, this);	  /////////// C4
+
+	//thread1.launch();
+	//thread2.launch();
+	//thread3.launch();
+	//thread4.launch();
+
+	//thread1.wait();
+	//thread2.wait();
+	//thread3.wait();
+	//thread4.wait();
+
+	thread thread1(&ComplexPlane::updateRender1, this);   /////////// C4
+	thread thread2(&ComplexPlane::updateRender2, this);   /////////// C4
+	thread thread3(&ComplexPlane::updateRender3, this);   /////////// C4
+	thread thread4(&ComplexPlane::updateRender4, this);
+
+	thread1.join();
+	thread2.join();
+	thread3.join();
+	thread4.join();
 }
 
 void ComplexPlane::zoomIn()
@@ -131,9 +280,9 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 {
 	if (count == MAX_ITER)
 	{
-		r = 225;
-		g = 222;
-		b = 222;
+		r = 0;
+		g = 0;
+		b = 0;
 	}
 	else
 	{
